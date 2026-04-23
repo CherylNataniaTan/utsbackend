@@ -16,7 +16,7 @@ async function getBalanceByAccountNumber(request, response, next) {
     );
 
     if (!balance) {
-      return response.status(404).json({ message: "Balance not found" });
+      return response.status(404).json({ message: "Terjadi kesalahan, Akun tidak ditemukan" });
     }
 
     return response.status(200).json(balance);

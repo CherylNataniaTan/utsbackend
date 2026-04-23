@@ -30,11 +30,11 @@ async function createAccount(request, response, next) {
     const { accountName, ownerName, accountType } = request.body;
 
     if (!accountName) {
-      return response.status(400).json({ message: "Account name is required" });
+      return response.status(400).json({ message: "Usernam tidak boleh kosong" });
     }
 
     if (!ownerName) {
-      return response.status(400).json({ message: "Owner name is required" });
+      return response.status(400).json({ message: "Nama pengguna wajib diisi" });
     }
 
     const account = await accountsService.createAccount(
@@ -58,7 +58,7 @@ async function updateAccount(request, response, next) {
     );
 
     if (!existing) {
-      return response.status(404).json({ message: "Account not found" });
+      return response.status(404).json({ message: "Tidak bisa update data, terjadi kesalahan" });
     }
 
     await accountsService.updateAccount(
@@ -70,7 +70,7 @@ async function updateAccount(request, response, next) {
 
     return response
       .status(200)
-      .json({ message: "Account updated successfully" });
+      .json({ message: "Data akun berhasil di update " });
   } catch (error) {
     return next(error);
   }
@@ -83,14 +83,14 @@ async function deleteAccount(request, response, next) {
     );
 
     if (!existing) {
-      return response.status(404).json({ message: "Account not found" });
+      return response.status(404).json({ message: "Terjadi kesalahan, silahkan coba lagi" });
     }
 
     await accountsService.deleteAccount(request.params.accountNumber);
 
     return response
       .status(200)
-      .json({ message: "Account deleted successfully" });
+      .json({ message: "Akun berhasil dihapus" });
   } catch (error) {
     return next(error);
   }
