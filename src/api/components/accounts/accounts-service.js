@@ -1,5 +1,4 @@
 const accountsRepository = require("./accounts-repository");
-const accountsRepository = require('./accounts-repository');
 
 
 function generateAccountNumber() {
