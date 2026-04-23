@@ -1,109 +1,108 @@
-console.log("🔥 SERVICE KELOAD 🔥");
-const accountsService = require('./accounts-service');
-const { errorResponder, errorTypes } = require('../../../core/errors');
+const accountsService = require("./accounts-service");
 
-async function getAllAccounts(req, res, next) {
+async function getAccounts(request, response, next) {
   try {
     const accounts = await accountsService.getAllAccounts();
-    return res.status(200).json({
-      success: true,
-      total_data: accounts.length,
-      data: accounts,
-    });
+    return response.status(200).json(accounts);
   } catch (error) {
     return next(error);
   }
 }
 
-async function getAccountByNumber(req, res, next) {
+async function getAccount(request, response, next) {
   try {
-    const { accountNumber } = req.params;
-
-    const account = await accountsService.getAccountByNumber(accountNumber);
+    const account = await accountsService.getAccountByNumber(
+      request.params.accountNumber
+    );
 
     if (!account) {
-      throw errorResponder(errorTypes.NOT_FOUND, 'Rekening tidak ditemukan');
+      return response.status(404).json({ message: "Account not found" });
     }
 
-    return res.status(200).json({
-      success: true,
-      data: account,
-    });
+    return response.status(200).json(account);
   } catch (error) {
     return next(error);
   }
 }
 
-async function createAccount(req, res, next) {
+async function createAccount(request, response, next) {
   try {
-    const { accountName, ownerName, accountType } = req.body;
+    const { accountName, ownerName, accountType } = request.body;
 
-    if (!accountName || !ownerName) {
-      throw errorResponder(
-        errorTypes.VALIDATION_ERROR,
-        'Nama rekening dan Nama pemilik wajib diisi'
-      );
+    if (!accountName) {
+      return response
+        .status(400)
+        .json({ message: "Nama akun harus diisi!!!!" });
     }
 
-    const newAccount = await accountsService.createAccount({
+    if (!ownerName) {
+      return response
+        .status(400)
+        .json({ message: "Nama owner tidak boleh kosong" });
+    }
+
+    const account = await accountsService.createAccount(
       accountName,
       ownerName,
-      accountType,
-    });
+      accountType
+    );
 
-    return res.status(201).json({
-      success: true,
-      message: 'Rekening berhasil dibuat',
-      data: newAccount,
-    });
+    return response.status(201).json(account);
   } catch (error) {
     return next(error);
   }
 }
 
-async function updateAccount(req, res, next) {
+async function updateAccount(request, response, next) {
   try {
-    const { accountNumber } = req.params;
-    const updateData = req.body;
+    const { accountName, ownerName, accountType } = request.body;
 
-    const updated = await accountsService.updateAccount(accountNumber, updateData);
+    const existing = await accountsService.getAccountByNumber(
+      request.params.accountNumber
+    );
 
-    if (!updated) {
-      throw errorResponder(errorTypes.NOT_FOUND, 'Rekening tidak ditemukan');
+    if (!existing) {
+      return response.status(404).json({ message: "Account not found" });
     }
 
-    return res.status(200).json({
-      success: true,
-      message: 'Berhasil update rekening',
-      data: updated,
-    });
+    await accountsService.updateAccount(
+      request.params.accountNumber,
+      accountName,
+      ownerName,
+      accountType
+    );
+
+    return response
+      .status(200)
+      .json({ message: "Account updated successfully" });
   } catch (error) {
     return next(error);
   }
 }
 
-async function deleteAccount(req, res, next) {
+async function deleteAccount(request, response, next) {
   try {
-    const { accountNumber } = req.params;
+    const existing = await accountsService.getAccountByNumber(
+      request.params.accountNumber
+    );
 
-    const deleted = await accountsService.deleteAccount(accountNumber);
-
-    if (!deleted) {
-      throw errorResponder(errorTypes.NOT_FOUND, 'Rekening tidak ditemukan');
+    if (!existing) {
+      return response.status(404).json({ message: "Akun telah dihapus" });
     }
 
-    return res.status(200).json({
-      success: true,
-      message: 'Rekening berhasil dihapus',
-    });
+    await accountsService.deleteAccount(request.params.accountNumber);
+
+    return response
+      .status(200)
+      .json({ message: "Account deleted successfully" });
   } catch (error) {
     return next(error);
   }
 }
 
 module.exports = {
-  getAllAccounts,
-  getAccountByNumber,
+  getAccounts,
+  getAccount,
   createAccount,
   updateAccount,
   deleteAccount,

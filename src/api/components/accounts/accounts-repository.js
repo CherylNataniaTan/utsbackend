@@ -1,4 +1,3 @@
-console.log("🔥 REPOSITORY BARU KELOAD 🔥");
 const { Accounts } = require('../../../models');
 
 async function findAll() {
