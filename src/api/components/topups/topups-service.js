@@ -37,17 +37,19 @@ exports.updateTopUp = async (id, data) => {
   const updated = await repo.update(id, data);
 
   if (data.status === "success" && topup.status !== "success") {
-  await historyRepo.create({
-    userId: topup.userId,
-    name: topup.name,
-    type: "topup",
-    amount: topup.amount,
-    description: `Top up sebesar ${topup.amount}`,
-    topupId: topup._id,
-  });
-    console.log("STATUS LAMA:", topup.status);
-    console.log("STATUS BARU:", data.status);
-}
+    try {
+      await historyRepo.create({
+        userId: topup.userId,
+        name: topup.name,
+        type: "topup",
+        amount: topup.amount,
+        description: `Top up sebesar ${topup.amount}`,
+        topupId: topup._id,
+      });
+    } catch (err) {
+      console.log("History insert failed:", err);
+    }
+  }
 
   return updated;
 };

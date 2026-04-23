@@ -44,3 +44,18 @@ exports.remove = async (req, res, next) => {
     next(err);
   }
 };
+
+exports.create = async (req, res, next) => {
+  try {
+    console.log("BODY:", req.body);
+
+    const data = await service.createTopUp(req.body);
+
+    console.log("RESULT:", data);
+
+    res.status(201).json(data);
+  } catch (err) {
+    console.log("ERROR CREATE TOPUP:", err);
+    next(err);
+  }
+};

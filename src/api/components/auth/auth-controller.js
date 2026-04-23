@@ -1,5 +1,31 @@
+const bcrypt = require('bcrypt');
+const Users = require('../../models/users-schema');
 const authService = require('./auth-service');
 const { errorResponder, errorTypes } = require('../../core/errors');
+
+async function register(request, response, next) {
+  try {
+    const { email, password, fullName } = request.body;
+
+    const bcrypt = require('bcrypt');
+    const Users = require('../../models/users-schema');
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const user = await Users.create({
+      email,
+      password: hashedPassword,
+      fullName,
+    });
+
+    return response.status(201).json({
+      message: 'Register success',
+      data: user,
+    });
+  } catch (error) {
+    return next(error);
+  }
+}
 
 async function getAuthSessions(request, response, next) {
   try {
@@ -32,10 +58,17 @@ async function login(request, response, next) {
     const { email, password } = request.body;
 
     if (!email) {
-      throw errorResponder(errorTypes.VALIDATION_ERROR, 'Email is required');
+      throw errorResponder(
+        errorTypes.VALIDATION,
+        'Email is required'
+      );
     }
+
     if (!password) {
-      throw errorResponder(errorTypes.VALIDATION_ERROR, 'Password is required');
+      throw errorResponder(
+        errorTypes.VALIDATION,
+        'Password is required'
+      );
     }
 
     const loginResult = await authService.checkLogin(email, password);
@@ -76,7 +109,9 @@ async function updateAuthSession(request, response, next) {
       );
     }
 
-    return response.status(200).json({ message: 'Auth session updated successfully' });
+    return response.status(200).json({
+      message: 'Auth session updated successfully',
+    });
   } catch (error) {
     return next(error);
   }
@@ -102,7 +137,9 @@ async function deleteAuthSession(request, response, next) {
       );
     }
 
-    return response.status(200).json({ message: 'Logged out successfully' });
+    return response.status(200).json({
+      message: 'Logged out successfully',
+    });
   } catch (error) {
     return next(error);
   }
@@ -110,7 +147,9 @@ async function deleteAuthSession(request, response, next) {
 
 async function testProtected(request, response, next) {
   try {
-    return response.status(200).json({ message: 'OK' });
+    return response.status(200).json({
+      message: 'OK',
+    });
   } catch (error) {
     return next(error);
   }
@@ -123,4 +162,5 @@ module.exports = {
   updateAuthSession,
   deleteAuthSession,
   testProtected,
+  register, 
 };

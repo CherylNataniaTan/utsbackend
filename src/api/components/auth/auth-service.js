@@ -30,10 +30,18 @@ async function getAuthSession(id) {
 async function checkLogin(email, password) {
   const user = await authRepository.getUserByEmail(email);
 
+<<<<<<< HEAD
   const userPass = user ? user.password : '<RANDOM>';
   const loginPassed = await bcrypt.compare(password, userPass);
+=======
+  if (!user) {
+    return null;
+  }
+>>>>>>> 50f25fa583fe26fd06cfcc90083ee2e09abd7fa7
 
-  if (user && loginPassed) {
+  const loginPassed = await bcrypt.compare(password, user.password);
+
+  if (loginPassed) {
     const token = generateToken(user.email);
     const expiredAt = getExpiryDate();
 
