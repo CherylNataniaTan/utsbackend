@@ -5,7 +5,7 @@ async function getUsers() {
 }
 
 async function getUser(id) {
-  return Users.findById(id).select('-password');//
+  return Users.findById(id).select('-password');
 }
 
 async function getUserByEmail(email) {
