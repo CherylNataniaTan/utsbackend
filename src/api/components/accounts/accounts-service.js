@@ -4,18 +4,17 @@ function generateAccountNumber() {
   return Math.floor(1000000000 + Math.random() * 9000000000).toString();
 }
 
-async function getAccounts() {
+async function getAllAccounts() {
   return accountsRepository.findAll();
 }
 
-async function getAccount(accountNumber) {
+async function getAccountByNumber(accountNumber) {
   return accountsRepository.findByAccountNumber(accountNumber);
 }
 
 async function createAccount(accountName, ownerName, accountType) {
   let accountNumber = generateAccountNumber();
 
-  // cek sederhana biar ga duplicate
   const existing = await accountsRepository.findByAccountNumber(accountNumber);
   if (existing) {
     accountNumber = generateAccountNumber();
@@ -59,8 +58,8 @@ async function deleteAccount(accountNumber) {
 }
 
 module.exports = {
-  getAccounts,
-  getAccount,
+  getAllAccounts,
+  getAccountByNumber,
   createAccount,
   updateAccount,
   deleteAccount,

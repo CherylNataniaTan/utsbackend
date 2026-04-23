@@ -1,6 +1,6 @@
 const accountsService = require("./accounts-service");
 
-async function getAccounts(request, response, next) {
+async function getAllAccounts(request, response, next) {
   try {
     const accounts = await accountsService.getAllAccounts();
     return response.status(200).json(accounts);
@@ -9,7 +9,7 @@ async function getAccounts(request, response, next) {
   }
 }
 
-async function getAccount(request, response, next) {
+async function getAccountByNumber(request, response, next) {
   try {
     const account = await accountsService.getAccountByNumber(
       request.params.accountNumber
@@ -30,15 +30,11 @@ async function createAccount(request, response, next) {
     const { accountName, ownerName, accountType } = request.body;
 
     if (!accountName) {
-      return response
-        .status(400)
-        .json({ message: "Nama akun harus diisi!!!!" });
+      return response.status(400).json({ message: "Account name is required" });
     }
 
     if (!ownerName) {
-      return response
-        .status(400)
-        .json({ message: "Nama owner tidak boleh kosong" });
+      return response.status(400).json({ message: "Owner name is required" });
     }
 
     const account = await accountsService.createAccount(
@@ -87,7 +83,7 @@ async function deleteAccount(request, response, next) {
     );
 
     if (!existing) {
-      return response.status(404).json({ message: "Akun telah dihapus" });
+      return response.status(404).json({ message: "Account not found" });
     }
 
     await accountsService.deleteAccount(request.params.accountNumber);
@@ -101,8 +97,8 @@ async function deleteAccount(request, response, next) {
 }
 
 module.exports = {
-  getAccounts,
-  getAccount,
+  getAllAccounts,
+  getAccountByNumber,
   createAccount,
   updateAccount,
   deleteAccount,

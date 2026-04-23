@@ -1,20 +1,19 @@
 const { Accounts } = require('../../../models');
 
 async function findAll() {
-  return await Accounts.find().sort({ createdAt: -1 });
+  return Accounts.find().sort({ createdAt: -1 });
 }
 
 async function findByAccountNumber(accountNumber) {
-  return await Accounts.findOne({ accountNumber: String(accountNumber) });
+  return Accounts.findOne({ accountNumber: String(accountNumber) });
 }
 
 async function create(data) {
-  return await Accounts.create(data);
+  return Accounts.create(data);
 }
 
-
 async function updateByAccountNumber(accountNumber, data) {
-  return await Accounts.findOneAndUpdate(
+  return Accounts.findOneAndUpdate(
     { accountNumber: String(accountNumber) },
     data,
     { new: true }
@@ -22,7 +21,7 @@ async function updateByAccountNumber(accountNumber, data) {
 }
 
 async function deleteByAccountNumber(accountNumber) {
-  return await Accounts.findOneAndDelete({
+  return Accounts.findOneAndDelete({
     accountNumber: String(accountNumber),
   });
 }
