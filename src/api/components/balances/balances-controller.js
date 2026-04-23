@@ -1,6 +1,6 @@
 const balancesService = require("./balances-service");
 
-async function getBalances(request, response, next) {
+async function getAllBalances(request, response, next) {
   try {
     const balances = await balancesService.getAllBalances();
     return response.status(200).json(balances);
@@ -9,7 +9,7 @@ async function getBalances(request, response, next) {
   }
 }
 
-async function getBalance(request, response, next) {
+async function getBalanceByAccountNumber(request, response, next) {
   try {
     const balance = await balancesService.getBalanceByAccountNumber(
       request.params.accountNumber
@@ -27,20 +27,8 @@ async function getBalance(request, response, next) {
 
 async function createBalance(request, response, next) {
   try {
-    const { accountNumber, balance } = request.body;
-
-    if (!accountNumber) {
-      return response
-        .status(400)
-        .json({ message: "Account number is required" });
-    }
-
-    const newBalance = await balancesService.createBalance(
-      accountNumber,
-      balance
-    );
-
-    return response.status(201).json(newBalance);
+    const result = await balancesService.createBalance(request.body);
+    return response.status(201).json(result);
   } catch (error) {
     return next(error);
   }
@@ -48,32 +36,24 @@ async function createBalance(request, response, next) {
 
 async function updateBalance(request, response, next) {
   try {
-    const { balance } = request.body;
-
-    const existing = await balancesService.getBalanceByAccountNumber(
-      request.params.accountNumber
+    const updated = await balancesService.updateBalance(
+      request.params.accountNumber,
+      request.body
     );
 
-    if (!existing) {
-      return response.status(404).json({ message: "Balance not found" });
+    if (!updated) {
+      return response.status(404).json({ message: "Tidak berhasil update saldo" });
     }
 
-    await balancesService.updateBalance(
-      request.params.accountNumber,
-      balance
-    );
-
-    return response
-      .status(200)
-      .json({ message: "Balance updated successfully" });
+    return response.status(200).json(updated);
   } catch (error) {
     return next(error);
   }
 }
 
 module.exports = {
-  getBalances,
-  getBalance,
+  getAllBalances,
+  getBalanceByAccountNumber,
   createBalance,
   updateBalance,
 };
