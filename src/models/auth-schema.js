@@ -4,7 +4,7 @@ module.exports = (db) =>
     db.Schema(
       {
         userId: {
-          type: Schema.Types.ObjectId, 
+          type: db.Schema.Types.ObjectId,
           ref: 'Users',
           required: true,
         },
@@ -24,15 +24,15 @@ module.exports = (db) =>
         },
         loginAt: {
           type: Date,
-          default: Date.now(), 
+          default: Date.now,
         },
         expiredAt: {
           type: Date,
-          require: true, 
+          required: true,
         },
       },
       {
-        timestamp: true, 
+        timestamps: true,
       }
     )
   );
