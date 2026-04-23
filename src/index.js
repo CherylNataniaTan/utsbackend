@@ -5,9 +5,6 @@ const PORT = process.env.PORT || 3000;
 // Middleware
 app.use(express.json());
 
-// =====================
-// SECURITY
-// =====================
 app.get("/security", (req, res) => {
   return res.json({ message: "GET semua data keamanan" });
 });
@@ -36,9 +33,6 @@ app.delete("/security/:id", (req, res) => {
   });
 });
 
-// =====================
-// CARDS
-// =====================
 app.get("/cards", (req, res) => {
   return res.json({ message: "GET semua kartu" });
 });
@@ -67,9 +61,6 @@ app.delete("/cards/:id", (req, res) => {
   });
 });
 
-// =====================
-// START SERVER
-// =====================
 app.listen(PORT, () => {
   console.log(`Server berjalan di http://localhost:${PORT}`);
 });
