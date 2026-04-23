@@ -7,6 +7,7 @@ module.exports = (db) =>
           type: db.Schema.Types.ObjectId,
           ref: 'Users',
           required: true,
+
         },
         email: {
           type: String,
