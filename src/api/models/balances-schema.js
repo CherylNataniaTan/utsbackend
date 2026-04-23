@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const balanceSchema = new mongoose.Schema({
   userId: {
-    type: String, // nanti bisa diganti ObjectId kalau ada user schema
+    type: String, 
     required: true
   },
   balance: {
