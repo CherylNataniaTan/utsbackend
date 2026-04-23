@@ -1,4 +1,4 @@
-const Transfer = require('../../../models/transfers-schema');
+const Transfer = require('../../models/transfers-schema');
 
 // ambil semua data transfer
 const getAllTransfers = async () => {
