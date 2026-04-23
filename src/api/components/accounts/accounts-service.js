@@ -15,7 +15,7 @@ async function getAccount(accountNumber) {
 async function createAccount(accountName, ownerName, accountType) {
   let accountNumber = generateAccountNumber();
 
-
+  // cek sederhana biar ga duplicate
   const existing = await accountsRepository.findByAccountNumber(accountNumber);
   if (existing) {
     accountNumber = generateAccountNumber();
