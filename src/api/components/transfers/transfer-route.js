@@ -3,10 +3,10 @@ const router = express.Router();
 const controller = require('./transfer-controller');
 
 // endpoint transfers
-router.get('/transfers', controller.getAllTransfers);
-router.get('/transfers/:id', controller.getTransferById);
-router.post('/transfers', controller.createTransfer);
-router.patch('/transfers/:id', controller.updateTransfer);
-router.delete('/transfers/:id', controller.deleteTransfer);
+router.get('/', controller.getAllTransfers);
+router.get('/:id', controller.getTransferById);
+router.post('/', controller.createTransfer);
+router.patch('/:id', controller.updateTransfer);
+router.delete('/:id', controller.deleteTransfer);
 
 module.exports = router;

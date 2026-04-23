@@ -3,7 +3,7 @@ const logger = require('../utils/logger');
 
 const connectDB = async () => {
   try {
-    await mongoose.connect('mongodb://127.0.0.1:27017/DigitalBanking');
+    await mongoose.connect('mongodb://127.0.0.1:27017/uts-backend');
 
     logger.info('MongoDB connected');
   } catch (err) {

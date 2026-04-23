@@ -1,4 +1,4 @@
-const History = require("../../models/history-schema");
+const History = require('../../models/history-schema');
 
 exports.findAll = async () => {
   return await History.find();
@@ -19,3 +19,4 @@ exports.update = async (id, data) => {
 exports.remove = async (id) => {
   return await History.findByIdAndDelete(id);
 };
+

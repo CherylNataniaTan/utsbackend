@@ -1,5 +1,6 @@
 const usersService = require('./users-service');
 const { errorResponder, errorTypes } = require('../../core/errors');
+const bcrypt = require('bcrypt');
 
 async function getUsers(request, response, next) {
   try {
@@ -68,7 +69,7 @@ async function createUser(request, response, next) {
       );
     }
 
-    const hashedPassword = await hashPassword(password);
+    const hashedPassword = await bcrypt.hash(password, 10);
 
     const accountNumber = usersService.generateAccountNumber();
 
@@ -165,7 +166,7 @@ async function changePassword(request, response, next) {
     const { getUserByEmail } = require('./users-repository');
     const userWithPassword = await getUserByEmail(user.email);
 
-    const isOldPasswordCorrect = await passwordMatched(
+    const isOldPasswordCorrect = await bcrypt.compare(
       oldPassword,
       userWithPassword.password
     );
@@ -197,7 +198,7 @@ async function changePassword(request, response, next) {
       );
     }
 
-    const hashedNewPassword = await hashPassword(newPassword);
+    const hashedNewPassword = await bcrypt.hash(newPassword, 10);
 
     const success = await usersService.changePassword(id, hashedNewPassword);
 

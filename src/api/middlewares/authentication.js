@@ -8,7 +8,7 @@ passport.use(
   new passportJWT.Strategy(
     {
       jwtFromRequest: passportJWT.ExtractJwt.fromAuthHeaderWithScheme('jwt'),
-      secretOrKey: 'RANDOM_STRING',
+      secretOrKey: process.env.JWT_SECRET || 'RANDOM_STRING',
     },
     async (payload, done) => {
       const user = await Users.findOne({ email: payload.email });

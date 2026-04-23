@@ -24,7 +24,7 @@ async function createBalance(data) {
 
   const existing = await balancesRepository.findByAccountNumber(accountNumber);
   if (existing) {
-    throw errorResponder(errorTypes.CONFLICT, 'Balance sudah ada untuk rekening ini');
+    throw errorResponder(errorTypes.DB_DUPLICATE_CONFLICT, 'Balance sudah ada untuk rekening ini');
   }
 
   const payload = {

@@ -1,4 +1,4 @@
-const Security = require('../../models/security-schema');
+const { Security } = require('../../models/security-schema');
 
 async function getSecurities() {
   return await Security.find({});
@@ -36,3 +36,5 @@ module.exports = {
   updateSecurity,
   deleteSecurity,
 };
+
+

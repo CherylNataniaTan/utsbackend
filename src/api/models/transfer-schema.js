@@ -3,12 +3,12 @@ const mongoose = require('mongoose');
 const transferSchema = new mongoose.Schema({
   fromAccount: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Account',
+    ref: 'Accounts',
     required: true
   },
   toAccount: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Account',
+    ref: 'Accounts',
     required: true
   },
   amount: {

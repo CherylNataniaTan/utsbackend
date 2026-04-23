@@ -28,11 +28,6 @@ router.use("/api/topups", verifyToken, topupsRoute);
 router.use("/api/transactions", verifyToken, transactionsRoute);
 router.use("/api/transfers", verifyToken, transferRoute);
 
-router.use((req, res) => {
-  res.status(404).json({
-    success: false,
-    message: `Route ${req.method} ${req.originalUrl} not found`,
-  });
-});
+
 
 module.exports = router;

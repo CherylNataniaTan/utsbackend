@@ -3,10 +3,10 @@ const router = express.Router();
 const controller = require('./transaction-controller');
 
 // endpoint
-router.get('/transactions', controller.getAll);
-router.get('/transactions/:id', controller.getById);
-router.post('/transactions', controller.create);
-router.patch('/transactions/:id', controller.update);
-router.delete('/transactions/:id', controller.remove);
+router.get('/', controller.getAll);
+router.get('/:id', controller.getById);
+router.post('/', controller.create);
+router.patch('/:id', controller.update);
+router.delete('/:id', controller.remove);
 
 module.exports = router;

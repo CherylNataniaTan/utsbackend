@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const balanceSchema = new mongoose.Schema({
-  userId: {
+  accountNumber: {
     type: String, 
     required: true
   },
@@ -10,12 +10,13 @@ const balanceSchema = new mongoose.Schema({
     required: true,
     default: 0
   },
-  currency: {
-    type: String,
-    default: 'IDR'
+  lastUpdated: {
+    type: Date,
+    default: Date.now
   }
 }, {
   timestamps: true
 });
 
-module.exports = mongoose.model('Balance', balanceSchema);
+const Balances = mongoose.model('Balance', balanceSchema);
+module.exports = { Balances };

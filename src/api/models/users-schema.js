@@ -1,8 +1,9 @@
-module.exports = (db) =>
-  db.model(
-    'Users',
-    db.Schema(
-      {
+const mongoose = require('mongoose');
+
+const Users = mongoose.model(
+  'Users',
+  new mongoose.Schema(
+    {
         email: {
           type: String,
           required: true,
@@ -28,14 +29,16 @@ module.exports = (db) =>
           type: Number,
           default: 0,
         },
-        accountNumber: {
-          type: String,
-          unique: true,
-          sparse: true,
-        },
-      },
-      {
-        timestamps: true,
-      }
-    )
-  );
+    accountNumber: {
+      type: String,
+      unique: true,
+      sparse: true,
+    },
+  },
+  {
+    timestamps: true,
+  }
+  )
+);
+
+module.exports = { Users };

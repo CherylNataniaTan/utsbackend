@@ -1,4 +1,4 @@
-const TopUp = require("../../models/topup-schema");
+const TopUp = require('../../models/topup-schema');
 
 exports.findAll = async () => {
   return await TopUp.find();
@@ -19,3 +19,4 @@ exports.update = async (id, data) => {
 exports.remove = async (id) => {
   return await TopUp.findByIdAndDelete(id);
 };
+

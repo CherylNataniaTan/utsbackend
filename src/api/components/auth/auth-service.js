@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
 const authRepository = require('./auth-repository');
-// const { passwordMatched } = require('../../utils/');
 
 const SECRET_KEY = process.env.JWT_SECRET || 'RANDOM_STRING';
 const TOKEN_EXPIRY = '1d';
@@ -31,7 +31,7 @@ async function checkLogin(email, password) {
   const user = await authRepository.getUserByEmail(email);
 
   const userPass = user ? user.password : '<RANDOM>';
-  const loginPassed = await passwordMatched(password, userPass);
+  const loginPassed = await bcrypt.compare(password, userPass);
 
   if (user && loginPassed) {
     const token = generateToken(user.email);
