@@ -1,11 +1,11 @@
-const accountsController = require('./accounts-controller');
+const express = require("express");
+const router = express.Router();
+const accountsController = require("./accounts-controller");
 
-module.exports = (app) => {
-  console.log("Accounts route loaded");
+router.get("/", accountsController.getAllAccounts);
+router.post("/", accountsController.createAccount);
+router.get("/:accountNumber", accountsController.getAccountByNumber);
+router.patch("/:accountNumber", accountsController.updateAccount);
+router.delete("/:accountNumber", accountsController.deleteAccount);
 
-  app.get('/accounts', accountsController.getAllAccounts);
-  app.post('/accounts', accountsController.createAccount);
-  app.get('/accounts/:accountNumber', accountsController.getAccountByNumber);
-  app.patch('/accounts/:accountNumber', accountsController.updateAccount);
-  app.delete('/accounts/:accountNumber', accountsController.deleteAccount);
-};
+module.exports = router;
