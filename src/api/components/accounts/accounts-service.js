@@ -1,4 +1,4 @@
-console.log("🔥 SERVICE KELOAD 🔥");
+console.log("SERVICE KELOAD");
 const accountsRepository = require('./accounts-repository');
 
 // Generate nomor rekening random 10 digit
