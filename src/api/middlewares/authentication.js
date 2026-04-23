@@ -7,7 +7,7 @@ passport.use(
   'user',
   new passportJWT.Strategy(
     {
-      jwtFromRequest: passportJWT.ExtractJwt.fromAuthHeaderWithScheme('jwt'),
+      jwtFromRequest: passportJWT.ExtractJwt.fromAuthHeaderAsBearerToken(),
       secretOrKey: 'RANDOM_STRING',
     },
     async (payload, done) => {

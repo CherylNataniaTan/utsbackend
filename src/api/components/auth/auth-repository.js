@@ -1,4 +1,5 @@
-const { Users, Auth } = require('../../models/auth-schema');
+const Users = require('../../models//users-schema');
+const Auth = require('../../models/auth-schema');
 
 async function getAuthSessions() {
   return Auth.find({}).populate('userId', 'email fullName');

@@ -4,6 +4,8 @@ const PORT = process.env.PORT || 3000;
 const routes = require("../src/routes/route");
 const logger = require('./api/utils/logger');
 const mongoose = require("mongoose");
+
+app.use(express.json());
 app.use(routes);
 
 app.listen(PORT, () => {
@@ -18,8 +20,6 @@ mongoose
   .catch((err) => {
     console.log("MongoDB error:", err.message);
   });
-
-app.use(express.json());
 
 // =====================
 // ACCOUNTS
