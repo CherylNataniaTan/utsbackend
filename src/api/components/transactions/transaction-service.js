@@ -1,4 +1,4 @@
-const repo = require('./transactions-repository');
+const repo = require('./transaction-repository');
 
 // GET semua
 const getTransactions = async () => {

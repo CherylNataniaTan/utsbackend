@@ -1,33 +1,23 @@
-// const express = require('express');
-// const app = express();
-// const connectDB = require('./api/core/database');
-// const logger = require('./api/utils/logger');
-// const History = require('../src/api/components/histories/histories-service');
-
-// const PORT = 3000;
-
-// app.use(express.json());
-
-// connectDB();
-
-// const routes = require('./api/components/routes');
-// app.use(routes);
-// app.use(require('./api/components/topups/topups-route')); 
-
-// app.listen(PORT, () => {
-//   logger.info(`Server berjalan di http://localhost:${PORT}`);
-// });
-
-// app.use((err, req, res, next) => {
-//   console.error('ERROR MIDDLEWARE:', err);
-//   res.status(500).json({
-//     message: err.message || 'Internal Server Error',
-//   });
-// });
-
 const express = require("express");
 const app = express();
 const PORT = process.env.PORT || 3000;
+const routes = require("../src/routes/route");
+const logger = require('./api/utils/logger');
+const mongoose = require("mongoose");
+app.use(routes);
+
+app.listen(PORT, () => {
+  logger.info(`Server berjalan di http://localhost:${PORT}`);
+});
+
+mongoose
+  .connect("mongodb://127.0.0.1:27017/backend-uts")
+  .then(() => {
+    logger.info(`MongoDB Connected`);
+  })
+  .catch((err) => {
+    console.log("MongoDB error:", err.message);
+  });
 
 app.use(express.json());
 
@@ -259,13 +249,6 @@ app.patch("/transfers/:id", (req, res) => {
 
 app.delete("/transfers/:id", (req, res) => {
   res.json({ message: `DELETE transfer ID: ${req.params.id}` });
-});
-
-// =====================
-// START SERVER
-// =====================
-app.listen(PORT, () => {
-  console.log(`Server berjalan di http://localhost:${PORT}`);
 });
 
 module.exports = app;

@@ -1,4 +1,4 @@
-const service = require('./transfers-service');
+const service = require('./transfer-service');
 
 // GET /transfers
 const getAllTransfers = async (req, res) => {

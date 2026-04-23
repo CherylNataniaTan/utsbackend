@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const controller = require('./transfers-controller');
+const controller = require('./transfer-controller');
 
 // endpoint transfers
 router.get('/transfers', controller.getAllTransfers);

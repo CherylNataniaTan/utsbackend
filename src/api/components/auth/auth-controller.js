@@ -1,5 +1,5 @@
 const authService = require('./auth-service');
-const { errorResponder, errorTypes } = require('../../../core/errors');
+const { errorResponder, errorTypes } = require('../../core/errors');
 
 async function getAuthSessions(request, response, next) {
   try {

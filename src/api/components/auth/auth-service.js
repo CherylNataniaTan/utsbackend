@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const authRepository = require('./auth-repository');
-const { passwordMatched } = require('../../../utils/password');
+// const { passwordMatched } = require('../../utils/');
 
 const SECRET_KEY = process.env.JWT_SECRET || 'RANDOM_STRING';
 const TOKEN_EXPIRY = '1d';

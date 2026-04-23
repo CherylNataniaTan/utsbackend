@@ -1,4 +1,4 @@
-const Transaction = require('../../../models/transactions-schema');
+const Transaction = require('../../models/transaction-schema');
 
 // ambil semua transaksi
 const getAll = async () => {

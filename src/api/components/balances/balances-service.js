@@ -1,6 +1,6 @@
 const balancesRepository = require('./balances-repository');
 const accountsRepository = require('../accounts/accounts-repository');
-const { errorResponder, errorTypes } = require('../../../core/errors');
+const { errorResponder, errorTypes } = require('../../core/errors');
 
 async function getAllBalances() {
   return await balancesRepository.findAll();
