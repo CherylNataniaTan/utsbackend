@@ -28,6 +28,7 @@ async function createBalance(data) {
   }
 
   const payload = {
+    userId: account.userId,
     accountNumber,
     balance: balance || 0,
     lastUpdated: new Date(),

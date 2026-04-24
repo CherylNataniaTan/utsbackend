@@ -5,7 +5,7 @@ const securitySchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  pin: {
+  password: {
     type: String,
     required: true,
     minlength: 4

@@ -1,4 +1,4 @@
-const { Accounts } = require('../../models/accounts-schema');
+const Accounts = require('../../models/accounts-schema');
 
 async function findAll() {
   return Accounts.find().sort({ createdAt: -1 });

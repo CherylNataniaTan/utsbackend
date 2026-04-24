@@ -8,9 +8,9 @@ app.use(routes);
 const logger = require('./api/utils/logger');
 const mongoose = require("mongoose");
 
-app.listen(PORT, () => {
-  logger.info(`Server berjalan di http://localhost:${PORT}`);
-});
+// app.listen(PORT, () => {
+//   logger.info(`Server berjalan di http://localhost:${PORT}`);
+// });
 
 mongoose
   .connect("mongodb://127.0.0.1:27017/backend-uts")

@@ -1,4 +1,4 @@
-const { Balances } = require('../../models/balances-schema');
+const Balances = require('../../models/balances-schema');
 
 async function findAll() {
   return await Balances.find().sort({ lastUpdated: -1 });

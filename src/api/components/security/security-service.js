@@ -8,10 +8,10 @@ async function getById(id) {
   return securityRepository.getSecurity(id);
 }
 
-async function createSecurity(userId, pin, verification, status) {
+async function createSecurity(userId, password, verification, status) {
   return securityRepository.createSecurity(
     userId,
-    pin,
+    password,
     verification,
     status
   );

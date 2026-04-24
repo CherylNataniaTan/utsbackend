@@ -25,24 +25,24 @@ async function getById (request, response, next) {
 
 async function create(request, response, next) {
   try {
-    const { userId, pin, verification, status } = request.body;
+    const { userId, password, verification, status } = request.body;
 
     // Validasi
     if (!userId) {
       return response.status(400).json({ message: "User ID is required" });
     }
 
-    if (!pin) {
-      return response.status(400).json({ message: "PIN is required" });
+    if (!password) {
+      return response.status(400).json({ message: "password is required" });
     }
 
-    if (pin.length < 4) {
-      return response.status(400).json({ message: "PIN must be at least 4 digits" });
+    if (password.length < 4) {
+      return response.status(400).json({ message: "password must be at least 4 digits" });
     }
 
     const success = await securityService.createSecurity(
       userId,
-      pin,
+      password,
       verification,
       status
     );

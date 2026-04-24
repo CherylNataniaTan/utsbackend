@@ -8,10 +8,10 @@ async function getSecurity(id) {
   return await Security.findById(id);
 }
 
-async function createSecurity(userId, pin, verification, status) {
+async function createSecurity(userId, password, verification, status) {
   return await Security.create({
     userId,
-    pin,
+    password,
     verification,
     status,
   });

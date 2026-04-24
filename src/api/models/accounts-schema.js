@@ -22,6 +22,10 @@
 const mongoose = require("mongoose");
 
 const accountSchema = new mongoose.Schema({
+    userId: {
+    type: Number,
+    required: true,
+  },
   accountNumber: { type: String, unique: true, required: true },
   accountName: { type: String, required: true },
   accountType: {

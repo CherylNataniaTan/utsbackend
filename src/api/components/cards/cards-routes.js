@@ -2,10 +2,10 @@ const express = require("express");
 const router = express.Router();
 const ctrl = require("./cards-controller");
 
-router.get('/cards', ctrl.getCards);
-router.get('/cards/:id', ctrl.getCard);
-router.post('/cards', ctrl.createCard);
-router.put('/cards/:id', ctrl.updateCard);
-router.delete('/cards/:id', ctrl.deleteCard);
+router.get('/', ctrl.getCards);
+router.get('/:id', ctrl.getCard);
+router.post('/', ctrl.createCard);
+router.put('/:id', ctrl.updateCard);
+router.delete('/:id', ctrl.deleteCard);
 
 module.exports = router;
